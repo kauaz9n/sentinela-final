@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alta Hospitalar</title>
+
+  <style>
+   :root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success-color: #16a34a;
+  --danger-color: #dc2626;
+  --light: #f1f5f9;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+  color: var(--text);
+}
+
+/* CONTAINER PRINCIPAL */
+
+.container {
+  max-width: 1000px;
+  margin: 35px auto;
+  background: var(--white);
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(30, 64, 175, 0.08);
+  border: 1px solid #e8eef7;
+}
+
+/* CABEÇALHO */
+
+header {
+  text-align: center;
+  border-bottom: 2px solid #dbeafe;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+header p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* SEÇÕES */
+
+.section {
+  margin-top: 25px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.025);
+}
+
+.section h2 {
+  margin-top: 0;
+  margin-bottom: 22px;
+  color: #1d4ed8;
+  font-size: 19px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+  font-weight: 600;
+}
+
+/* GRIDS */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo.full {
+  grid-column: 1 / -1;
+}
+
+/* LABELS */
+
+label {
+  font-weight: 600;
+  margin-bottom: 7px;
+  font-size: 13px;
+  color: #334155;
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: #ffffff;
+  transition: 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #94a3b8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* ALERTA */
+
+.alerta {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 14px 16px;
+  border-radius: 9px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* OPÇÃO DE INTERNAÇÃO */
+
+.opcao-internacao {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.opcao-internacao label {
+  color: #1d4ed8;
+  font-size: 14px;
+}
+
+.dados-internacao {
+  margin-top: 20px;
+}
+
+.mensagem-sem-internacao {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  padding: 14px;
+  border-radius: 9px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* BOTÕES */
+
+.acoes {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.btn-salvar {
+  background: var(--success-color);
+  color: white;
+}
+
+.btn-salvar:hover {
+  background: #15803d;
+}
+
+.btn-imprimir {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-imprimir:hover {
+  background: var(--primary-dark);
+}
+
+.btn-voltar {
+  background: #64748b;
+  color: white;
+}
+
+.btn-voltar:hover {
+  background: #475569;
+}
+
+/* RODAPÉ */
+
+.rodape {
+  margin-top: 32px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ASSINATURA */
+
+.assinatura {
+  margin-top: 45px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.linha-assinatura {
+  border-top: 1px solid #64748b;
+  text-align: center;
+  padding-top: 8px;
+  margin-top: 35px;
+  font-size: 13px;
+  color: #475569;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 700px) {
+
+  .container {
+    margin: 12px;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+
+  .grid,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 18px;
+  }
+
+  .assinatura {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .acoes {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+/* IMPRESSÃO */
+
+@media print {
+
+  body {
+    background: white;
+  }
+
+  .container {
+    box-shadow: none;
+    margin: 0;
+    max-width: 100%;
+    border: none;
+  }
+
+  .acoes,
+  .nao-imprimir {
+    display: none !important;
+  }
+
+  input,
+  select,
+  textarea {
+    border: none;
+    padding: 4px 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .section {
+    break-inside: avoid;
+  }
+
+  .dados-internacao {
+    display: block !important;
+  }
+
+  .mensagem-sem-internacao {
+    display: block;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>🏥 FORMULÁRIO DE ALTA HOSPITALAR</h1>
+    <p>Documento de orientação e registro da alta do paciente</p>
+  </header>
+
+  <div class="alerta nao-imprimir">
+    <strong>⚠️ Atenção:</strong>
+    Preencha e revise todas as informações antes de finalizar a alta.
+  </div>
+
+
+  <!-- DADOS DO PACIENTE -->
+
+  <div class="section">
+
+    <h2>👤 Dados do Paciente</h2>
+
+    <div class="grid">
+
+      <div class="campo full">
+        <label for="paciente">Nome completo</label>
+        <input
+          type="text"
+          id="paciente"
+          placeholder="Nome do paciente">
+      </div>
+
+      <div class="campo">
+        <label for="cpf">CPF</label>
+        <input
+          type="text"
+          id="cpf"
+          placeholder="000.000.000-00">
+      </div>
+
+      <div class="campo">
+        <label for="prontuario">Nº do prontuário</label>
+        <input
+          type="text"
+          id="prontuario"
+          placeholder="Número do prontuário">
+      </div>
+
+      <div class="campo">
+        <label for="nascimento">Data de nascimento</label>
+        <input
+          type="date"
+          id="nascimento">
+      </div>
+
+      <div class="campo">
+        <label for="sexo">Sexo</label>
+
+        <select id="sexo">
+          <option value="">Selecione</option>
+          <option>Feminino</option>
+          <option>Masculino</option>
+          <option>Outro</option>
+          <option>Não informado</option>
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- INTERNAÇÃO -->
+
+  <div class="section">
+
+    <h2>🏥 Dados da Internação</h2>
+
+    <!-- PERGUNTA PRINCIPAL -->
+
+    <div class="opcao-internacao">
+
+      <div class="campo">
+
+        <label for="houveInternacao">
+          Houve internação?
+        </label>
+
+        <select
+          id="houveInternacao"
+          onchange="alternarInternacao()">
+
+          <option value="">
+            Selecione uma opção
+          </option>
+
+          <option value="sim">
+            Sim
+          </option>
+
+          <option value="nao">
+            Não
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- MENSAGEM QUANDO NÃO HOUVE INTERNAÇÃO -->
+
+    <div
+      id="mensagemSemInternacao"
+      class="mensagem-sem-internacao">
+
+      <strong>ℹ️ Informação:</strong>
+      O paciente não foi internado. Os campos de dados da internação não são necessários.
+
+    </div>
+
+
+    <!-- DADOS DA INTERNAÇÃO -->
+
+    <div
+      id="dadosInternacao"
+      class="dados-internacao"
+      style="display: none;">
+
+      <div class="grid">
+
+        <div class="campo">
+
+          <label for="internacao">
+            Data da internação
+          </label>
+
+          <input
+            type="date"
+            id="internacao">
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="alta">
+            Data da alta
+          </label>
+
+          <input
+            type="date"
+            id="alta">
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="setor">
+            Setor / Unidade
+          </label>
+
+          <input
+            type="text"
+            id="setor"
+            placeholder="Ex.: Clínica Médica">
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="leito">
+            Leito
+          </label>
+
+          <input
+            type="text"
+            id="leito"
+            placeholder="Número do leito">
+
+        </div>
+
+
+        <div class="campo full">
+
+          <label for="motivo">
+            Motivo da internação
+          </label>
+
+          <textarea
+            id="motivo"
+            placeholder="Descreva o motivo da internação"></textarea>
+
+        </div>
+
+
+        <div class="campo full">
+
+          <label for="diagnostico">
+            Diagnóstico na alta
+          </label>
+
+          <textarea
+            id="diagnostico"
+            placeholder="Diagnóstico principal e demais diagnósticos relevantes"></textarea>
+
+        </div>
+
+
+        <div class="campo full">
+
+          <label for="evolucao">
+            Resumo da evolução durante a internação
+          </label>
+
+          <textarea
+            id="evolucao"
+            placeholder="Descreva de forma resumida a evolução clínica do paciente"></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONDIÇÃO NA ALTA -->
+
+  <div class="section">
+
+    <h2>📋 Condição no Momento da Alta</h2>
+
+    <div class="grid-3">
+
+      <div class="campo">
+
+        <label for="estado">
+          Estado geral
+        </label>
+
+        <select id="estado">
+
+          <option value="">
+            Selecione
+          </option>
+
+          <option>
+            Estável
+          </option>
+
+          <option>
+            Melhorado
+          </option>
+
+          <option>
+            Sem alterações
+          </option>
+
+          <option>
+            Outro
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo">
+
+        <label for="temperatura">
+          Temperatura (°C)
+        </label>
+
+        <input
+          type="number"
+          step="0.1"
+          id="temperatura">
+
+      </div>
+
+
+      <div class="campo">
+
+        <label for="pressao">
+          Pressão arterial
+        </label>
+
+        <input
+          type="text"
+          id="pressao"
+          placeholder="Ex.: 120/80">
+
+      </div>
+
+
+      <div class="campo full">
+
+        <label for="condicao">
+          Observações sobre a condição clínica
+        </label>
+
+        <textarea
+          id="condicao"
+          placeholder="Informações relevantes sobre o estado do paciente no momento da alta"></textarea>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MEDICAMENTOS -->
+
+  <div class="section">
+
+    <h2>💊 Medicações e Tratamento</h2>
+
+    <div class="campo">
+
+      <label for="medicamentos">
+        Medicamentos prescritos na alta
+      </label>
+
+      <textarea
+        id="medicamentos"
+        placeholder="Informe os medicamentos, doses, horários e duração conforme prescrição médica."></textarea>
+
+    </div>
+
+    <br>
+
+    <div class="campo">
+
+      <label for="cuidados">
+        Cuidados e orientações
+      </label>
+
+      <textarea
+        id="cuidados"
+        placeholder="Orientações relacionadas ao tratamento, alimentação, repouso, cuidados domiciliares etc."></textarea>
+
+    </div>
+
+  </div>
+
+
+  <!-- RETORNO -->
+
+  <div class="section">
+
+    <h2>📅 Retorno e Acompanhamento</h2>
+
+    <div class="grid">
+
+      <div class="campo">
+
+        <label for="retorno">
+          Data prevista para retorno
+        </label>
+
+        <input
+          type="date"
+          id="retorno">
+
+      </div>
+
+
+      <div class="campo">
+
+        <label for="especialidade">
+          Especialidade / serviço
+        </label>
+
+        <input
+          type="text"
+          id="especialidade"
+          placeholder="Ex.: Clínica Médica">
+
+      </div>
+
+
+      <div class="campo full">
+
+        <label for="acompanhamento">
+          Orientações para acompanhamento
+        </label>
+
+        <textarea
+          id="acompanhamento"
+          placeholder="Informe as orientações para consultas, exames e acompanhamento após a alta."></textarea>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SINAIS DE ALERTA -->
+
+  <div class="section">
+
+    <h2>🚨 Orientações de Segurança</h2>
+
+    <div class="campo">
+
+      <label for="sinais">
+        Sinais ou sintomas que exigem nova avaliação
+      </label>
+
+      <textarea
+        id="sinais"
+        placeholder="Informe os sinais e sintomas específicos que devem motivar procura de atendimento."></textarea>
+        </div>
+
+
+  <!-- PROFISSIONAL -->
+
+  <div class="section">
+
+    <h2>👨‍⚕️ Profissional Responsável</h2>
+
+    <div class="grid">
+
+      <div class="campo">
+
+        <label for="profissional">
+          Nome do profissional
+        </label>
+
+        <input
+          type="text"
+          id="profissional">
+
+      </div>
+
+
+      <div class="campo">
+
+        <label for="crm">
+          Registro profissional
+        </label>
+
+        <input
+          type="text"
+          id="crm"
+          placeholder="CRM / registro profissional">
+
+      </div>
+
+    </div>
+
+
+    <div class="assinatura">
+
+      <div class="linha-assinatura">
+        Assinatura do profissional responsável
+      </div>
+
+      <div class="linha-assinatura">
+        Assinatura do paciente / responsável
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- AÇÕES -->
+
+  <div class="acoes nao-imprimir">
+
+    <button
+      class="btn-salvar"
+      onclick="salvarAlta()">
+
+      💾 Salvar Alta
+
+    </button>
+
+
+    <button
+      class="btn-imprimir"
+      onclick="window.print()">
+
+      🖨️ Imprimir / PDF
+
+    </button>
+
+
+    <button
+      class="btn-voltar"
+      onclick="window.location.href='index.html'">
+
+      ↩️ Voltar
+
+    </button>
+
+  </div>
+
+
+  <div class="rodape">
+
+    Documento de alta hospitalar —
+    preencher, revisar e validar antes da emissão.
+
+  </div>
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   MOSTRAR / OCULTAR DADOS DA INTERNAÇÃO
+===================================================== */
+
+function alternarInternacao() {
+
+  const opcao =
+    document.getElementById("houveInternacao").value;
+
+  const dadosInternacao =
+    document.getElementById("dadosInternacao");
+
+  const mensagem =
+    document.getElementById("mensagemSemInternacao");
+
+
+  if (opcao === "sim") {
+
+    dadosInternacao.style.display = "block";
+
+    mensagem.style.display = "none";
+
+  }
+
+  else if (opcao === "nao") {
+
+    dadosInternacao.style.display = "none";
+
+    mensagem.style.display = "block";
+
+
+    /*
+      Limpa os campos de internação
+      quando o usuário escolhe "Não".
+    */
+
+    document.getElementById("internacao").value = "";
+
+    document.getElementById("setor").value = "";
+
+    document.getElementById("leito").value = "";
+
+    document.getElementById("motivo").value = "";
+
+    document.getElementById("evolucao").value = "";
+
+  }
+
+  else {
+
+    dadosInternacao.style.display = "none";
+
+    mensagem.style.display = "none";
+
+  }
+
+}
+
+
+
+/* =====================================================
+   SALVAR ALTA
+===================================================== */
+
+function salvarAlta() {
+
+
+  const dados = {
+
+    paciente:
+      document.getElementById("paciente").value,
+
+    cpf:
+      document.getElementById("cpf").value,
+
+    prontuario:
+      document.getElementById("prontuario").value,
+
+    nascimento:
+      document.getElementById("nascimento").value,
+
+    sexo:
+      document.getElementById("sexo").value,
+
+
+    /* INTERNAÇÃO */
+
+    houveInternacao:
+      document.getElementById("houveInternacao").value,
+
+    internacao:
+      document.getElementById("internacao").value,
+
+    alta:
+      document.getElementById("alta").value,
+
+    setor:
+      document.getElementById("setor").value,
+
+    leito:
+      document.getElementById("leito").value,
+
+    motivo:
+      document.getElementById("motivo").value,
+
+    diagnostico:
+      document.getElementById("diagnostico").value,
+
+    evolucao:
+      document.getElementById("evolucao").value,
+
+
+    /* CONDIÇÃO */
+
+    estado:
+      document.getElementById("estado").value,
+
+    temperatura:
+      document.getElementById("temperatura").value,
+
+    pressao:
+      document.getElementById("pressao").value,
+
+    condicao:
+      document.getElementById("condicao").value,
+
+
+    /* MEDICAMENTOS */
+
+    medicamentos:
+      document.getElementById("medicamentos").value,
+
+    cuidados:
+      document.getElementById("cuidados").value,
+
+
+    /* RETORNO */
+
+    retorno:
+      document.getElementById("retorno").value,
+
+    especialidade:
+      document.getElementById("especialidade").value,
+
+    acompanhamento:
+      document.getElementById("acompanhamento").value,
+
+
+    /* SINAIS */
+
+    sinais:
+      document.getElementById("sinais").value,
+
+
+    /* PROFISSIONAL */
+
+    profissional:
+      document.getElementById("profissional").value,
+
+    crm:
+      document.getElementById("crm").value
+
+  };
+
+
+  /* VALIDAÇÕES */
+
+  if (!dados.paciente) {
+
+    alert("Informe o nome do paciente.");
+
+    document.getElementById("paciente").focus();
+
+    return;
+
+  }
+
+
+  if (!dados.diagnostico) {
+
+    alert("Informe o diagnóstico da alta.");
+
+    document.getElementById("diagnostico").focus();
+
+    return;
+
+  }
+
+
+  if (!dados.houveInternacao) {
+
+    alert("Informe se houve internação.");
+
+    document.getElementById("houveInternacao").focus();
+
+    return;
+
+  }
+
+
+  /*
+    Se houve internação, verifica
+    se a data da internação foi informada.
+  */
+
+  if (
+    dados.houveInternacao === "sim" &&
+    !dados.internacao
+  ) {
+
+    alert("Informe a data da internação.");
+
+    document.getElementById("internacao").focus();
+
+    return;
+
+  }
+
+
+  /*
+    Envia para o servidor.
+  */
+
+  fetch("/alta", {
+
+    method: "POST",
+
+    headers: {
+
+      "Content-Type": "application/json"
+
+    },
+
+    body: JSON.stringify(dados)
+
+  })
+
+  .then(response => {
+
+    if (!response.ok) {
+
+      throw new Error("Erro ao salvar");
+
+    }
+
+    return response.json();
+
+  })
+
+  .then(() => {
+
+    alert("✅ Alta salva com sucesso!");
+
+    /*
+      Também guarda uma cópia local.
+    */
+
+    localStorage.setItem(
+      "ultimaAlta",
+      JSON.stringify(dados)
+    );
+
+  })
+
+  .catch(error => {
+
+    console.error(error);
+
+
+    /*
+      Caso o servidor não esteja disponível,
+      mantém os dados no navegador.
+    */
+
+    localStorage.setItem(
+      "ultimaAlta",
+      JSON.stringify(dados)
+    );
+
+
+    alert(
+      "⚠️ A alta foi preenchida, mas não foi possível " +
+      "salvar no servidor. Os dados foram armazenados " +
+      "temporariamente neste navegador."
+    );
+
+  });
+
+}
+
+
+
+/* =====================================================
+   DATA AUTOMÁTICA DA ALTA
+===================================================== */
+
+document.getElementById("alta").value =
+  new Date().toISOString().split("T")[0];
+
+
+
+/* =====================================================
+   PACIENTE RECEBIDO PELA URL
+===================================================== */
+
+const parametros =
+  new URLSearchParams(window.location.search);
+
+const pacienteURL =
+  parametros.get("paciente");
+
+
+if (pacienteURL) {
+
+  document.getElementById("paciente").value =
+    pacienteURL;
+
+}
+
+
+
+/* =====================================================
+   RECUPERAR ÚLTIMA ALTA SALVA LOCALMENTE
+===================================================== */
+
+const altaSalva =
+  localStorage.getItem("ultimaAlta");
+
+
+if (altaSalva && !pacienteURL) {
+
+  try {
+
+    const dados =
+      JSON.parse(altaSalva);
+
+
+    Object.keys(dados).forEach(campo => {
+
+      const elemento =
+        document.getElementById(campo);
+
+
+      if (elemento) {
+
+        elemento.value =
+          dados[campo];
+
+      }
+
+    });
+
+
+    /*
+      Atualiza a tela conforme a opção
+      de internação que foi recuperada.
+    */
+
+    alternarInternacao();
+
+
+  }
+
+  catch (erro) {
+
+    console.error(
+      "Erro ao recuperar alta:",
+      erro
+    );
+
+  }
+
+}
+
+
+</script>
+
+</body>
+</html>
